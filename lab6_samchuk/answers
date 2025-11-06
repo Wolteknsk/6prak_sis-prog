@@ -1,0 +1,82 @@
+Часть 1.
+ 1. команда: echo $$
+    вывод: 44820
+
+ 2. команда: ls -la /proc/$$/fd
+    вывод:total 0
+dr-x------ 2 codespace codespace  9 Nov  6 09:20 .
+dr-xr-xr-x 9 codespace codespace  0 Nov  6 09:20 ..
+lrwx------ 1 codespace codespace 64 Nov  6 09:20 0 -> /dev/pts/0
+lrwx------ 1 codespace codespace 64 Nov  6 09:20 1 -> /dev/pts/0
+lrwx------ 1 codespace codespace 64 Nov  6 09:20 2 -> /dev/pts/0
+l-wx------ 1 codespace codespace 64 Nov  6 09:20 22 -> /home/codespace/.vscode-remote/data/logs/20251106T091113/remoteagent.log
+l-wx------ 1 codespace codespace 64 Nov  6 09:20 23 -> /home/codespace/.vscode-remote/data/logs/20251106T091113/remoteTelemetry.log
+l-wx------ 1 codespace codespace 64 Nov  6 09:20 24 -> /home/codespace/.vscode-remote/data/logs/20251106T091113/ptyhost.log
+lrwx------ 1 codespace codespace 64 Nov  6 09:20 25 -> /dev/pts/ptmx
+lr-x------ 1 codespace codespace 64 Nov  6 09:20 3 -> /proc/49092/fd
+
+ 3. команда: cat /proc/$$/status | head -10
+    вывод: 
+State:  S (sleeping)
+Tgid:   44820
+Ngid:   0
+Pid:    44820
+PPid:   43220
+TracerPid:      0
+Uid:    1000    1000    1000    1000
+Gid:    1000    1000    1000    1000
+
+ 4. команда: lsof -p $$
+    вывод: 
+bash    44820 codespace    6w   CHR    1,3      0t0      49 /dev/null
+bash    44820 codespace   22w   REG   0,46    13977  705716 /home/codespace/.vscode-remote/data/logs/20251106T091113/remoteagent.log
+bash    44820 codespace   23w   REG   0,46     1550  705718 /home/codespace/.vscode-remote/data/logs/20251106T091113/remoteTelemetry.log
+bash    44820 codespace   24w   REG   0,46        0  705990 /home/codespace/.vscode-remote/data/logs/20251106T091113/ptyhost.log
+bash    44820 codespace   25u   CHR    5,2      0t0       2 /dev/pts/ptmx
+bash    44820 codespace  255u   CHR  136,0      0t0       3 /dev/pts/0
+
+ОТВЕТ НА ВОПРОС:
+
+0 (stdin) - стандартный ввод
+1 (stdout) - стандартный вывод
+2 (stderr) - стандартный вывод ошибок
+
+Как определили: По общепринятой нумерации файловых дескрипторов в Unix-системах:
+
+0 всегда соответствует stdin
+1 всегда соответствует stdout
+2 всегда соответствует stderr
+
+Это видно из вывода команд, где дескрипторы 0, 1, 2 связаны с терминалом (/dev/pts/1), 
+что подтверждает их назначение как стандартных потоков ввода/вывода.
+
+Часть 2.
+ 1. команда:ls -l > output.txt
+    вывод: результат в файле
+
+ 2. команда: cat non_existent_file.txt 2> error.log
+    вывод: результат в файле
+
+ 3. команда: ls existing_file.txt non_existent_file.txt > output.log 2> errors.log
+    вывод: результат в файлах
+
+ 4. команда: cat output.log
+             cat errors.log
+    вывод: .......
+
+ОТВЕТ НА ВОПРОС: Потому что это два независимых потока данных с разными файловыми дескрипторами (1 и 2 соответственно).
+ Операционная система и оболочка (bash) позволяют управлять каждым потоком отдельно.
+
+Часть 3. 
+  команда: gcc file_demo.c
+  вывод: файл a.out
+
+ОТВЕТ НА ВОПРОС: 644 = rw-r--r-- 
+ владелец: чтение + запись(6)
+ Группа: только чтение(4)
+ Отстальное: только чтение(4)
+   типичные права для обычных файлов
+
+Часть 4. 
+ команда: gcc main.c filelib.c -o app
+ вывод: файлы 

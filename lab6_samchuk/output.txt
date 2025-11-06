@@ -1,0 +1,3 @@
+total 4
+-rw-rw-rw- 1 codespace codespace 2644 Nov  6 09:39 answers
+-rw-rw-rw- 1 codespace codespace    0 Nov  6 09:40 output.txt
