@@ -71,7 +71,7 @@ bash    44820 codespace  255u   CHR  136,0      0t0       3 /dev/pts/0
   команда: gcc file_demo.c
   вывод: файл a.out
 
-ОТВЕТ НА ВОПРОС: 644 = rw-r--r-- 
+ОТВЕТ НА ВОПРОС: 6644 = rw-rw-r--r-- 
  владелец: чтение + запись(6)
  Группа: только чтение(4)
  Отстальное: только чтение(4)
@@ -80,3 +80,17 @@ bash    44820 codespace  255u   CHR  136,0      0t0       3 /dev/pts/0
 Часть 4. 
  команда: gcc main.c filelib.c -o app
  вывод: файлы 
+
+Часть 5.
+ команда: make
+          make run
+          make clean
+ вывод: make: 'app' is up to date.
+        ./app 
+        rm -f app log.txt
+
+Часть 6. 
+   команды: ./app > out.txt
+            ./app 2> err.txt
+            ./app > all.txt 2>&1
+   вывод: все в файлах
